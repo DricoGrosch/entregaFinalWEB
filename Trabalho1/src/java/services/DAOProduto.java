@@ -16,7 +16,8 @@ import javax.persistence.TypedQuery;
  * @author Drico
  */
 public class DAOProduto {
-  public static boolean persist(Produto ct) {
+
+    public static boolean persist(Produto ct) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1PU");
         EntityManager em = emf.createEntityManager();
         try {
@@ -31,27 +32,28 @@ public class DAOProduto {
         }
         return true;
     }
-    
-    public static Produto getOne(Long pId){
-      EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1PU");  
-      EntityManager em = emf.createEntityManager();
-      return em.find(Produto.class, pId);    
-    }   
-    
-    public static boolean excluir(Long pId){
-      EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1PU");  
-      EntityManager em = emf.createEntityManager();
-      em.remove(pId); 
-      return true;
-    }
-    public static List<Produto> getAll(){
+
+    public static Produto getOne(Long pId) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1PU");
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Produto> tq = em.createQuery("select c  from Produto c", Produto.class);
+        return em.find(Produto.class, pId);
+    }
+
+    public static boolean excluir(Long pId) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1PU");
+        EntityManager em = emf.createEntityManager();
+        em.remove(pId);
+        return true;
+    }
+
+    public static List<Produto> getAll() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1PU");
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Produto> tq = em.createQuery("select p from Produto p", Produto.class);
         return tq.getResultList();
     }
-    
-    public static boolean editar(Produto ct){
+
+    public static boolean editar(Produto ct) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1PU");
         EntityManager em = emf.createEntityManager();
         try {
@@ -66,5 +68,5 @@ public class DAOProduto {
         }
         return true;
     }
-  
+
 }

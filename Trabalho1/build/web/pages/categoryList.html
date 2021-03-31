@@ -40,6 +40,7 @@
 </main>
 <footer class="footer"></footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/globals.js"></script>
 <script src="../js/category.js"></script>
 <script>
     let categories = []
@@ -52,14 +53,15 @@
         await renderTable(filteredCategories)
     }
 
+
     async function renderTable(categories) {
         $('#tabela-categoria tbody').html(categories.reduce(
             (content, categoria) => content += `<tr>
                             <td>${categoria.id}</td>
                             <td>${categoria.descricao}</td>
                             <td>
-                                <a><i class="fa fa-edit"></i></a>
-                                <a onclick="deleteCategoria(${categoria.id})"><i class="fa fa-times"></i></a>
+                                <a class="table-icon" onclick="redirectToEdit(${categoria.id},'categoryForm.html')"><i class="fa fa-edit"></i></a>
+                                <a class="table-icon" onclick="deleteCategoria(${categoria.id})"><i class="fa fa-times"></i></a>
                             </td></tr>`, ''))
     }
 

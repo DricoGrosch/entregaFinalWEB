@@ -168,3 +168,6 @@ body {
     margin: 0;
     border: 1px solid black;
 }
+.table-icon{
+    cursor: pointer;
+}

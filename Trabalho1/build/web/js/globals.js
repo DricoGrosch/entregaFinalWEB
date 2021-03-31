@@ -5,3 +5,6 @@ async function serializeForm(form) {
     })
     return formData
 }
+  async function redirectToEdit(id,formTemplate) {
+        window.location.href = `http://localhost:8080/Trabalho1/pages/${formTemplate}?id=${id}`
+    }

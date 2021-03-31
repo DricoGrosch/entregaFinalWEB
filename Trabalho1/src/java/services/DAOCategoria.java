@@ -62,7 +62,7 @@ public class DAOCategoria {
     }
     
     public static boolean editar(Categoria ct){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prova1PU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1PU");
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();

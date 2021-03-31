@@ -43,7 +43,7 @@
 </main>
 <footer class="footer"></footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<script src="../js/globals.js"></script>
 <script>
     let products = []
 
@@ -51,6 +51,15 @@
         const data = await $.getJSON('http://localhost:8080/Trabalho1/webresources/produto')
         products = data
         await renderTable(data)
+    }
+
+    async function deleteProduto(id) {
+        await $.ajax({
+            url: `http://localhost:8080/Trabalho1/webresources/produto/excluir/${id}`,
+            method: 'delete',
+            contentType: "application/json; charset=utf-8",
+            success: () => window.location.href = 'http://localhost:8080/Trabalho1/pages/produtoList.html'
+        })
     }
 
     async function filterProducts(value) {
@@ -74,8 +83,8 @@
                                 <td>${produto.qtdEstoque}</td>
                                 <td>${produto.categoria.descricao}</td>
                                 <td>
-                                    <a><i class="fa fa-edit"></i></a>
-                                    <a><i class="fa fa-times"></i></a>
+                                    <a class="table-icon" onclick="redirectToEdit(${categoria.id},'produtoForm.html')"><i class="fa fa-edit"></i></a>
+                                    <a class="table-icon"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>`, ''))
     }

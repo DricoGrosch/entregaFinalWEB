@@ -22,8 +22,10 @@
                                                                          class="rounded-input">
                 <option value="">---------</option>
             </select></div>
-            <div style="width: 100%"><label>Valor</label><input name="valor" class="rounded-input" type="number"></div>
-            <div style="width: 100%"><label>Estoque</label><input name="qtdEstoque" class="rounded-input" type="number">
+            <div style="width: 100%"><label>Valor</label><input name="valor" id="valor" class="rounded-input"
+                                                                type="number"></div>
+            <div style="width: 100%"><label>Estoque</label><input name="qtdEstoque" id="qtdEstoque"
+                                                                  class="rounded-input" type="number">
             </div>
             <div style="margin-top:2%;width: 100%;display: flex;justify-content: space-between">
                 <button type="button" onclick="saveProduct()" class="primary-button">Salvar</button>
@@ -38,12 +40,16 @@
 <script src="../js/category.js"></script>
 
 <script>
+    let produto;
+
     async function saveProduct() {
         const formData = await serializeForm($('#product-form'))
-        debugger
+        if (produto) {
+            formData['id'] = produto.id
+        }
         $.ajax({
             url: 'http://localhost:8080/Trabalho1/webresources/produto',
-            method: 'post',
+            method: produto ? 'put' : 'post',
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(formData),
             success: () => window.location.href = 'http://localhost:8080/Trabalho1/pages/productList.html'
@@ -51,6 +57,16 @@
     }
 
     $(document).ready(async () => {
+        try {
+            const id = window.location.href.split('?')[1].split('=')[1]
+            produto = await $.getJSON(`http://localhost:8080/Trabalho1/webresources/produto/${id}`)
+            $('#descricao').val(categoria.descricao)
+            $('#categoria').val(categoria.descricao)
+            $('#valor').val(categoria.descricao)
+            $('#qtdEstoque').val(categoria.descricao)
+        } catch (e) {
+            return
+        }
         const categories = await loadAll()
         $('#categoria').html(categories.reduce((content, {
             id,
