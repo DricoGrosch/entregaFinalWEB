@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../css/globals.css">
+</head>
+<body>
+<header class="top-menu">
+    <div class="dropdown">
+        <span type="button" class="dropdown-button">Cadastros</span>
+        <div class="dropdown-content">
+            <a href="categoryList.html">Categorias</a>
+            <a href="productList.html">Produtos</a>
+        </div>
+    </div>
+</header>
+<main class="content">
+    <div style="width: 50%">
+        <form id="product-form">
+            <div style="width: 100%"><label>Descrição</label><input class="rounded-input" name="descricao" type="text">
+            </div>
+            <div style="width: 100%"><label>Categoria</label><br><select name="categoria" id="categoria"
+                                                                         class="rounded-input">
+                <option value="">---------</option>
+            </select></div>
+            <div style="width: 100%"><label>Valor</label><input name="valor" class="rounded-input" type="number"></div>
+            <div style="width: 100%"><label>Estoque</label><input name="qtdEstoque" class="rounded-input" type="number">
+            </div>
+            <div style="margin-top:2%;width: 100%;display: flex;justify-content: space-between">
+                <button type="button" onclick="saveProduct()" class="primary-button">Salvar</button>
+                <a href="productList.html" class="danger-button">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</main>
+<footer class="footer"></footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/globals.js"></script>
+<script src="../js/category.js"></script>
+
+<script>
+    async function saveProduct() {
+        const formData = await serializeForm($('#product-form'))
+        debugger
+        $.ajax({
+            url: 'http://localhost:8080/Trabalho1/webresources/produto',
+            method: 'post',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formData),
+            success: () => window.location.href = 'http://localhost:8080/Trabalho1/pages/productList.html'
+        })
+    }
+
+    $(document).ready(async () => {
+        const categories = await loadAll()
+        $('#categoria').html(categories.reduce((content, {
+            id,
+            descricao
+        }) => content += `<option value="${id}">${descricao}</option>`, ''))
+    })
+</script>
+</body>
+</html>

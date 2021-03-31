@@ -1,0 +1,170 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    background-color: #DCFFB0;
+}
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    background-color: gray;
+    height: 5%;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer:before{
+    content: 'Copyright @ Adrian Grosch';
+}
+
+.top-menu {
+    top: 0;
+    background-color: gray;
+    height: 10%;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.dropdown-button {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 5%;
+}
+
+.dropdown-content {
+    background-color: gray;
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: lightgrey;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropdown-button {
+    background-color: lightgrey;
+}
+
+.rounded-input {
+    height: 25px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.primary-button {
+    border: none;
+    cursor: pointer;
+    color: white;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 400 13.3333px Arial;
+    padding: 1% 5%;
+    border-radius: 5px;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 16px;
+    background-color: darkblue; /* Green */
+
+}
+
+.secondary-button {
+    border: none;
+    cursor: pointer;
+    color: white;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 400 13.3333px Arial;
+    padding: 1% 5%;
+    border-radius: 5px;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 16px;
+    background-color: lightgrey;
+}
+
+.danger-button {
+    border: none;
+    cursor: pointer;
+    color: white;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 400 13.3333px Arial;
+    padding: 1% 5%;
+    border-radius: 5px;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 16px;
+    background-color: red;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2%
+}
+
+.table-bordered {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+.table-bordered th {
+    background-color: lightgrey;
+}
+
+.table-bordered th, td {
+    margin: 0;
+    border: 1px solid black;
+}

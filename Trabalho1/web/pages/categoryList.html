@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/globals.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+          crossorigin="anonymous"/>
+</head>
+<body>
+<header class="top-menu">
+    <div class="dropdown">
+        <span type="button" class="dropdown-button">Cadastros</span>
+        <div class="dropdown-content">
+            <a href="categoryList.html">Categorias</a>
+            <a href="productList.html">Produtos</a>
+        </div>
+    </div>
+</header>
+<main class="content">
+    <div style="display: flex;justify-content: flex-end;width: 90%;align-items: center">
+        <div style="width: 20%"><label>Filtro</label><input class="rounded-input" oninput="filterCategorias(this.value)"
+                                                            type="text"></div>
+        <div style="margin-left:5%;height:80%;align-self:flex-end;width: 10%"><a style="width: 100%"
+                                                                                 class="primary-button"
+                                                                                 href="categoryForm.html">Novo</a></div>
+    </div>
+    <div style="width: 100%;background-color: white;margin-top: 1%;padding: 1%">
+        <table class="table-bordered" id="tabela-categoria">
+            <thead>
+            <th>Id</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer class="footer"></footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/category.js"></script>
+<script>
+    let categories = []
+
+    async function filterCategorias(value) {
+        const filteredCategories = categories.filter(({
+                                                          id,
+                                                          descricao
+                                                      }) => `${id}`.includes(value) || descricao.includes(value))
+        await renderTable(filteredCategories)
+    }
+
+    async function renderTable(categories) {
+        $('#tabela-categoria tbody').html(categories.reduce(
+            (content, categoria) => content += `<tr>
+                            <td>${categoria.id}</td>
+                            <td>${categoria.descricao}</td>
+                            <td>
+                                <a><i class="fa fa-edit"></i></a>
+                                <a onclick="deleteCategoria(${categoria.id})"><i class="fa fa-times"></i></a>
+                            </td></tr>`, ''))
+    }
+
+    async function deleteCategoria(id) {
+        await $.ajax({
+            url: `http://localhost:8080/Trabalho1/webresources/categoria/excluir/${id}`,
+            method: 'delete',
+            contentType: "application/json; charset=utf-8",
+            success: () => window.location.href = 'http://localhost:8080/Trabalho1/pages/categoryList.html'
+        })
+    }
+
+    $(document).ready(async () => {
+        const data = await loadAll()
+        categories = data
+        await renderTable(data)
+    })
+
+
+</script>
+</body>
+</html>
