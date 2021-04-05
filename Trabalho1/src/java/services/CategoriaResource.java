@@ -16,8 +16,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import javax.ws.rs.DELETE;
 import models.Categoria;
+import models.Produto;
 
 /**
  * REST Web Service
@@ -26,8 +28,6 @@ import models.Categoria;
  */
 @Path("categoria")
 public class CategoriaResource {
-    
-
 
     @Context
     private UriInfo context;
@@ -38,41 +38,42 @@ public class CategoriaResource {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public String getXml() {
-      Gson gson = new Gson();
-      return gson.toJson(DAOCategoria.getAll());     
+        Gson gson = new Gson();
+        return gson.toJson(DAOCategoria.getAll());
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_XML)
     public void putXml(String content) {
     }
-    
+
     @POST
     @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public boolean inserirCategoria(String content) {
+    
+    public boolean inserirProduto(String content) {
         Gson gson = new Gson();
         Categoria ca = (Categoria) gson.fromJson(content, Categoria.class);
         return DAOCategoria.persist(ca);
+
     }
-    
+
     @Path("{categoriaId}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getCategoria(@PathParam("categoriaId") String id) {        
+    public String getCategoria(@PathParam("categoriaId") String id) {
         Gson gson = new Gson();
         Categoria ct = new Categoria();
         ct = DAOCategoria.getOne(Long.parseLong(id));
-        return gson.toJson(ct);     
+        return gson.toJson(ct);
     }
-    
+
     @Path("excluir/{categoriaId}")
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     public boolean excluir(@PathParam("categoriaId") String id) {
-      return DAOCategoria.excluir(Long.parseLong(id));
-    }    
-     
-    
+        return DAOCategoria.excluir(Long.parseLong(id));
+    }
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public boolean alterarCategoria(String content) {
@@ -80,5 +81,5 @@ public class CategoriaResource {
         Categoria ct = (Categoria) gson.fromJson(content, Categoria.class);
         return DAOCategoria.editar(ct);
     }
-    
+
 }

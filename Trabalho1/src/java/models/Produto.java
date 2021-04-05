@@ -31,7 +31,6 @@ public class Produto implements Serializable {
     private long qtdEstoque;
     
     @OneToOne
-    @Column(name="TestName")
     private Categoria categoria;
 
     public Produto(String descricao, long valor, long qtdEstoque, Categoria categoria) {
@@ -44,6 +43,10 @@ public class Produto implements Serializable {
     @Override
     public String toString() {
         return "Produto{" + "id=" + id + ", descricao=" + descricao + ", valor=" + valor + ", qtdEstoque=" + qtdEstoque + ", categoria=" + categoria + '}';
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     

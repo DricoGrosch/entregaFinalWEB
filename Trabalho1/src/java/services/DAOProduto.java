@@ -40,9 +40,19 @@ public class DAOProduto {
     }
 
     public static boolean excluir(Long pId) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1PU");
+     EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1PU");
         EntityManager em = emf.createEntityManager();
-        em.remove(pId);
+        Produto cg = em.find(Produto.class, pId);
+        try {
+            em.getTransaction().begin();
+            em.remove(cg);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
         return true;
     }
 

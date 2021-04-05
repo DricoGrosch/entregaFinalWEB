@@ -16,9 +16,10 @@
 <main class="content">
     <div style="width: 50%">
         <form id="product-form">
-            <div style="width: 100%"><label>Descrição</label><input class="rounded-input" name="descricao" type="text">
+            <div style="width: 100%"><label>Descrição</label><input class="rounded-input" id="descricao"
+                                                                    name="descricao" type="text">
             </div>
-            <div style="width: 100%"><label>Categoria</label><br><select name="categoria" id="categoria"
+            <div style="width: 100%"><label>Categoria</label><br><select name="categoria_id" id="categoria"
                                                                          class="rounded-input">
                 <option value="">---------</option>
             </select></div>
@@ -57,22 +58,24 @@
     }
 
     $(document).ready(async () => {
-        try {
-            const id = window.location.href.split('?')[1].split('=')[1]
-            produto = await $.getJSON(`http://localhost:8080/Trabalho1/webresources/produto/${id}`)
-            $('#descricao').val(categoria.descricao)
-            $('#categoria').val(categoria.descricao)
-            $('#valor').val(categoria.descricao)
-            $('#qtdEstoque').val(categoria.descricao)
-        } catch (e) {
-            return
-        }
         const categories = await loadAll()
         $('#categoria').html(categories.reduce((content, {
             id,
             descricao
         }) => content += `<option value="${id}">${descricao}</option>`, ''))
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('id')
+        if (id) {
+            produto = await $.getJSON(`http://localhost:8080/Trabalho1/webresources/produto/${id}`)
+            $('#descricao').val(produto.descricao)
+            $('#categoria').val(produto.categoria.id)
+            $('#valor').val(produto.valor)
+            $('#qtdEstoque').val(produto.qtdEstoque)
+        }
+
     })
+
 </script>
 </body>
 </html>

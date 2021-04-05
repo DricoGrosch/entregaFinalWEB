@@ -58,19 +58,19 @@
             url: `http://localhost:8080/Trabalho1/webresources/produto/excluir/${id}`,
             method: 'delete',
             contentType: "application/json; charset=utf-8",
-            success: () => window.location.href = 'http://localhost:8080/Trabalho1/pages/produtoList.html'
+            success: () => window.location.href = 'http://localhost:8080/Trabalho1/pages/productList.html'
         })
     }
 
     async function filterProducts(value) {
-        const filteredCategories = categories.filter(({
+        const filteredProducts = products.filter(({
                                                           id,
                                                           descricao,
                                                           valor,
                                                           qtdEstoque,
                                                           categoria,
                                                       }) => `${id}`.includes(value) || descricao.includes(value) || `${valor}`.includes(value) || `${qtdEstoque}`.includes(value) || categoria.descricao.includes(value))
-        await renderTable(filteredCategories)
+        await renderTable(filteredProducts)
     }
 
     async function renderTable(products) {
@@ -81,10 +81,10 @@
                                 <td>${produto.descricao}</td>
                                 <td>${produto.valor}</td>
                                 <td>${produto.qtdEstoque}</td>
-                                <td>${produto.categoria.descricao}</td>
+                                <td>${produto.categoria ? produto.categoria.descricao : ''}</td>
                                 <td>
-                                    <a class="table-icon" onclick="redirectToEdit(${categoria.id},'produtoForm.html')"><i class="fa fa-edit"></i></a>
-                                    <a class="table-icon"><i class="fa fa-times"></i></a>
+                                    <a class="table-icon" onclick="redirectToEdit(${produto.id},'productForm.html')"><i class="fa fa-edit"></i></a>
+                                    <a class="table-icon" onclick="deleteProduto(${produto.id})"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>`, ''))
     }

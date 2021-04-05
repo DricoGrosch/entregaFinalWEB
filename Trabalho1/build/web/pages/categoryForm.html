@@ -9,7 +9,7 @@
         <span type="button" class="dropdown-button">Cadastros</span>
         <div class="dropdown-content">
             <a href="categoryList.html">Categorias</a>
-            <a href="productList.html">Produtos</a>utk
+            <a href="productList.html">Produtos</a>
         </div>
     </div>
 </header>
@@ -36,7 +36,7 @@
     async function saveCategory() {
         let formData = await serializeForm($('#category-form'))
         if (categoria) {
-            formData['id'] = categoria.id
+            formData['id'] = categoria.id || null
         }
         $.ajax({
             url: 'http://localhost:8080/Trabalho1/webresources/categoria',
@@ -48,12 +48,12 @@
     }
 
     $(document).ready(async () => {
-        try {
-            const id = window.location.href.split('?')[1].split('=')[1]
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('id')
+        if (id) {
             categoria = await $.getJSON(`http://localhost:8080/Trabalho1/webresources/categoria/${id}`)
             $('#descricao').val(categoria.descricao)
-        } catch (e) {
-            return
         }
     })
 </script>
